@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { updateUser } from '../actions/auth';
+import { updateUser, logout } from '../actions/auth';
 import { renderErrormessage } from '../components/ErrorMessage';
 
 export default class Setting extends Component {

@@ -16,9 +16,6 @@ class AppRouter extends Component {
   componentDidMount() {
     this.props.onLoadApp();
   }
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps)
-  }
   render() {
     const { appLoaded, user, appName } = this.props;
     const dataProps = {...this.props};
