@@ -1,4 +1,4 @@
-import { ARTICLE_SUBMITTED, ARTICLE_PAGE_LOADED } from "../constants/actionType";
+import { ARTICLE_SUBMITTED, ARTICLE_PAGE_LOADED, LOAD_ARTICLE_LIST, LOAD_ARTICLE_LIST_BY_TAG, LOAD_FEED_ARTICLE_LIST } from "../constants/actionType";
 import { apiArticle } from "../api/";
 import axios from '../axios/'
 export const onCreateArticle = article => {
@@ -10,7 +10,7 @@ export const onCreateArticle = article => {
         return { status: "success", article: response.data.article };
       }
     } catch (error) {
-      return error.response.data.errors;
+      return { status: "error", errors: error.response.data.errors };
     }
   };
 };
@@ -23,7 +23,7 @@ export const onUpdateArticle = (slug, article) => {
         return { status: "success", article: response.data.article };
       }
     } catch (error) {
-      return { status: "error", error: error.response.data.errors };
+      return { status: "error", errors: error.response.data.errors };
     }
   };
 };
@@ -36,7 +36,44 @@ export const onLoadArticle =  (slug) => {
       return { status: "success", article: response.data.article };
      }
     } catch (error) {
-      return { status: "error", error: error.response.data.errors };
+      return { status: "error", errors: error.response.data.errors };
     }
   }
 };
+
+export const onLoadArticleList = (page) => {
+  return async dispatch => {
+    try {
+      const response = await apiArticle.onLoadArticleList(page);
+      if(response.data){
+        return {status: 'success', articles : response.data.articles, articlesCount : response.data.articlesCount };
+      }
+    } catch (error) {
+      return { status: "error", errors: error.response.data.errors };
+    }
+  };
+}
+export const onLoadArticleListByTag = (page, tag) => {
+  return async dispatch => {
+    try {
+      const response = await apiArticle.onLoadArticleListByTag(page, tag);
+      if(response.data){
+        return {status: 'success', articles : response.data.articles, articlesCount : response.data.articlesCount };
+      }
+    } catch (error) {
+      return { status: "error", errors: error.response.data.errors };
+    }
+  };
+}
+export const onLoadFeedArticleList = (page) => {
+  return async dispatch => {
+    try {
+      const response = await apiArticle.onLoadFeedArticleList(page);
+      if(response.data){
+        return {status: 'success', articles : response.data.articles, articlesCount : response.data.articlesCount };
+      }
+    } catch (error) {
+      return { status: "error", errors: error.response.data.errors };
+    }
+  };
+}
