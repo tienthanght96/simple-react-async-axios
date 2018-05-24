@@ -7,6 +7,7 @@ import Home from "../containers/Home";
 import Login from "../containers/Login";
 import Register from "../containers/Register";
 import Setting from "../containers/Setting";
+import Editor from "../containers/Editor";
 
 class AppRouter extends Component {
   constructor(props){
@@ -29,6 +30,8 @@ class AppRouter extends Component {
               <Route path="/login" render={props => <Login {...dataProps} {...props}/>}/>
               <Route path="/register" render={props => <Register {...dataProps} {...props}/>} />
               <Route path={"/settings" } render={props => <Setting {...dataProps} {...props}/>} />
+              <Route path={"/editor/:slug" } render={props => <Editor {...dataProps} {...props}/>} />
+              <Route path={"/editor" } render={props => <Editor {...dataProps} {...props}/>} />
             </Switch>
           </div>
         </Router>
