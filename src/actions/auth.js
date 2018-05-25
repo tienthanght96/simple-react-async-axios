@@ -64,3 +64,26 @@ export const logout = () => {
     return { status: "sucess" };
   };
 };
+
+
+export const onGetUserProfile = async username => {
+  try {
+    const response = await apiAuth.onGetUserProfile(username);
+    if (response.data) {
+      return { status: "success", profile: response.data.profile };
+    }
+  } catch (error) {
+    return { status: "error", errors: error.response.data.errors };
+  }
+};
+
+export const onChangeFollowUser = async (username, following) => {
+  try {
+    const response = await apiAuth.onChangeFollowUser(username, following);
+    if(response.data){
+      return {status: 'success', profile : response.data.profile};
+    }
+  } catch (error) {
+    return { status: "error", errors: error.response.data.errors };
+  }
+}

@@ -8,6 +8,8 @@ import Login from "../containers/Login";
 import Register from "../containers/Register";
 import Setting from "../containers/Setting";
 import Editor from "../containers/Editor";
+import Profile from "../containers/Profile";
+import Article from "../containers/Article";
 
 class AppRouter extends Component {
   constructor(props){
@@ -30,7 +32,9 @@ class AppRouter extends Component {
               <Route path="/login" render={props => <Login {...dataProps} {...props}/>}/>
               <Route path="/register" render={props => <Register {...dataProps} {...props}/>} />
               <Route path={"/settings" } render={props => <Setting {...dataProps} {...props}/>} />
+              <Route path={"/@:username" } render={props => <Profile {...dataProps} {...props}/>} />
               <Route path={"/editor/:slug" } render={props => <Editor {...dataProps} {...props}/>} />
+              <Route path={"/article/:slug" } render={props => <Article {...dataProps} {...props}/>} />
               <Route path={"/editor" } render={props => <Editor {...dataProps} {...props}/>} />
             </Switch>
           </div>

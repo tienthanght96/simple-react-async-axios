@@ -1,5 +1,5 @@
 import React from "react";
-
+import { onChangeFavoriteArticle } from "../actions/article";
 export default class FavoriteButton extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +8,23 @@ export default class FavoriteButton extends React.Component {
       favorite: props.favorite || null
     };
   }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.favorite && nextProps.favorite !== this.props.favorite){
+      this.setState({ favorite: nextProps.favorite });
+    }
+  }
   onHandleChangeFavorite = (favorited) => {
+    const { articleSlug } = this.state.favorite;
+    this.setState({ isLoading : true });
+    onChangeFavoriteArticle(articleSlug, favorited).then(result => {
+      const favorite= {...this.state.favorite};
+      if(result.status === 'success'){
+        favorite.favorited = result.article.favorited;
+        favorite.favoritesCount = result.article.favoritesCount;
+        favorite.articleSlug = result.article.slug;
+      }
+      this.setState({ isLoading: false, favorite });
+    });
     
   }
   render() {

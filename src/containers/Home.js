@@ -38,7 +38,7 @@ class Home extends React.Component {
               <div className="sidebar">
                 <p>Popular Tags</p>
                 <TagsListHome tags={tags} onClickTag={(tag) => {
-                  const listNewTab = listTab.filter((tab, index) => index < 2);
+                  const listNewTab = listTab.filter((tab, index) => this.props.token ? index < 2 : index < 1);
                   listNewTab.push({ name : tag });
                   this.setState({currentTag : tag, listTab : listNewTab})
                 }} />

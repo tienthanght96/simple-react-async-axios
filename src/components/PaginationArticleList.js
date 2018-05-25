@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import ArticleList from "../components/ArticleList";
 import Pagination from "../components/Pagination";
-import { onLoadArticleList,onLoadFeedArticleList, onLoadArticleListByTag  } from "../actions/article";
+import { onLoadArticleList,onLoadFeedArticleList, onLoadArticleListByTag, onLoadArticleListByAuthor, onLoadFavoriteArticleListByUser  } from "../actions/article";
 export default class PaginationArticleList extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +35,18 @@ export default class PaginationArticleList extends React.Component {
           this.setState({ articles : result.articles, articlesCount : result.articlesCount , page })
         }
       });
+      return;
+    }
+    if(type === 'profile_page'){
+      this.props.dispatch(
+        currentTag === 'My Article' 
+        ? onLoadArticleListByAuthor(page,props.auth)
+        : onLoadFavoriteArticleListByUser(page,props.auth)
+      ).then(result => {
+        if(result.status === 'success'){
+          this.setState({ articles : result.articles, articlesCount : result.articlesCount , page })
+        }
+      });
     }
   }
   render() {
@@ -43,7 +55,7 @@ export default class PaginationArticleList extends React.Component {
       <Fragment>
         <ArticleList key={page} articles={articles} />
 
-        {articlesCount && Math.ceil(articlesCount/10) > 1 && (
+        {(articlesCount > 0 && Math.ceil(articlesCount/10) > 1) && (
           <Pagination
               total={Math.ceil(articlesCount/10)}
               currentPage={page}

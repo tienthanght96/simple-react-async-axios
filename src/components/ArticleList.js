@@ -24,7 +24,6 @@ const ArticleList = ({ articles }) => {
                   {new Date(article.createdAt).toLocaleString()}
                 </span>
               </div>
-
               <FavoriteButton
                 favorite={{
                   favorited:article.favorited,

@@ -65,6 +65,30 @@ export const onLoadArticleListByTag = (page, tag) => {
     }
   };
 }
+export const onLoadArticleListByAuthor = (page, auth) => {
+  return async dispatch => {
+    try {
+      const response = await apiArticle.onLoadArticleListByAuthor(page, auth);
+      if(response.data){
+        return {status: 'success', articles : response.data.articles, articlesCount : response.data.articlesCount };
+      }
+    } catch (error) {
+      return { status: "error", errors: error.response.data.errors };
+    }
+  };
+}
+export const onLoadFavoriteArticleListByUser = (page, auth) => {
+  return async dispatch => {
+    try {
+      const response = await apiArticle.onLoadFavoriteArticleListByUser(page, auth);
+      if(response.data){
+        return {status: 'success', articles : response.data.articles, articlesCount : response.data.articlesCount };
+      }
+    } catch (error) {
+      return { status: "error", errors: error.response.data.errors };
+    }
+  };
+}
 export const onLoadFeedArticleList = (page) => {
   return async dispatch => {
     try {
@@ -76,4 +100,15 @@ export const onLoadFeedArticleList = (page) => {
       return { status: "error", errors: error.response.data.errors };
     }
   };
+}
+
+export const onChangeFavoriteArticle = async (slug, favorited) => {
+    try {
+      const response = await apiArticle.onChangeFavoriteArticle(slug, favorited);
+      if(response.data){
+        return {status: 'success', article : response.data.article};
+      }
+    } catch (error) {
+      return { status: "error", errors: error.response.data.errors };
+    }
 }
