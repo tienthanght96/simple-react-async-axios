@@ -39,7 +39,7 @@ export default class FavoriteButton extends React.Component {
         disabled={isLoading}
         onClick={() => this.onHandleChangeFavorite(favorite.favorited)}
       >
-        {!favorite.isHaveText 
+        {!this.props.isHaveText 
           ? (
             <span>
               <i className="ion-heart" /> {favorite.favoritesCount}

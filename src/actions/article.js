@@ -112,3 +112,44 @@ export const onChangeFavoriteArticle = async (slug, favorited) => {
       return { status: "error", errors: error.response.data.errors };
     }
 }
+
+export const onGetCommentsArticle =  async (slug) => {
+  try {
+    const response = await apiArticle.onGetCommentsArticle(slug);
+    if(response.data){
+      return {status: 'success', comments : response.data.comments};
+    }
+  } catch (error) {
+    return { status: "error", errors: error.response.data.errors };
+  }
+}
+export const onAddCommentArticle =  async (slug, comment) => {
+  try {
+    const response = await apiArticle.onAddCommentArticle(slug, comment);
+    if(response.data){
+      return {status: 'success', comment : response.data.comment};
+    }
+  } catch (error) {
+    return { status: "error", errors: error.response.data.errors };
+  }
+}
+export const onDeleteCommentArticle =  async (slug, id) => {
+  try {
+    const response = await apiArticle.onDeleteCommentArticle(slug, id);
+    if(response.data){
+      return {status: 'success', comment : response.data.comment};
+    }
+  } catch (error) {
+    return { status: "error", errors: error.response.data.errors };
+  }
+}
+export const onDeleteArticle =  async (slug) => {
+  try {
+    const response = await apiArticle.onDeleteArticle(slug);
+    if(response.data){
+      return {status: 'success'};
+    }
+  } catch (error) {
+    return { status: "error", errors: error.response.data.errors };
+  }
+}
